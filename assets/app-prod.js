@@ -6,6 +6,7 @@
     var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");  
     var APP_HOST =  currentHost;  
     var PROXY_URL = "http://" + currentHost + ":8070"; 
+    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "https://tv36.pages.dev";
 
     console.log("APP_URL:", APP_URL);
     console.log("PROXY_URL:", PROXY_URL);
@@ -15741,7 +15742,7 @@
             return this.f.br ? "in_t" : this.f.Xi ? "in_g" : this.f.$q ? "in_vi" : this.f.Zi ? "in_r" : this.f.dm ? "" : "in_v1"
         };
         d.Un = function () {
-            return this.f.dm ? "https://" + this.f.dm : this.f.AB ? "/youtubei/v1" : this.f.br ? "http://www-googleapis-test.sandbox.google.com/youtubei/vi" : this.f.Xi ? "https://staging-youtubei.sandbox.googleapis.com/v1" : this.f.$q ? this.f.Yi ? "https://youtubei.googleapis.com/youtubei/vi" : "https://www.googleapis.com/youtubei/vi" : this.f.Zi ? "https://web.archive.org/web/20160228021433/https://www-googleapis-staging.sandbox.google.com/youtubei/v1release" : this.f.Yi ? "https://tv36.pages.dev/youtubei/v1" : "https://tv36.pages.dev/youtubei/v1"
+            return this.f.dm ? "https://" + this.f.dm : this.f.AB ? "/youtubei/v1" : this.f.br ? "http://www-googleapis-test.sandbox.google.com/youtubei/vi" : this.f.Xi ? "https://staging-youtubei.sandbox.googleapis.com/v1" : this.f.$q ? this.f.Yi ? "https://youtubei.googleapis.com/youtubei/vi" : "https://www.googleapis.com/youtubei/vi" : this.f.Zi ? "https://web.archive.org/web/20160228021433/https://www-googleapis-staging.sandbox.google.com/youtubei/v1release" : this.f.Yi ? INNERTUBE_URL + "youtubei/v1" : INNERTUBE_URL + "youtubei/v1"
         };
         d.fk = function (a) {
             a = a || {};
