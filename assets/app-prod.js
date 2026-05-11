@@ -6,7 +6,7 @@
     var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");  
     var APP_HOST =  currentHost;  
     var PROXY_URL = "http://" + currentHost + ":8070"; 
-    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "https://tv36.pages.dev";
+    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "https://tv36.pages.dev/";
 
     console.log("APP_URL:", APP_URL);
     console.log("PROXY_URL:", PROXY_URL);
