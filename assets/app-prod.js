@@ -20882,7 +20882,7 @@
             // Log the constructed payload
             console.log('d.Eu payload:', a);
 
-            a = new cg("POST", "/o/oauth2/token", null, a);
+            a = new cg("POST", "https://accounts.google.com/o/oauth2/token", null, a);
 
             var b = this.B();
 
@@ -20960,7 +20960,7 @@
                     b(!!a);
                     this.Qm()
                 }, this),
-                e = new cg("POST", "/o/oauth2/device/code", null, e),
+                e = new cg("POST", "https://oauth2.googleapis.com/device/code", null, e),
                 g = this.B();
             g.Ed(x(this.RE, this, a, f));
             g.Ef(x(this.Qm, this, c));
@@ -20992,7 +20992,7 @@
                 device_code: a,
                 grant_type: "http://oauth.net/grant_type/device/1.0"
             },
-                e = new cg("POST", "/o/oauth2/token", null, e),
+                e = new cg("POST", "https://accounts.google.com/o/oauth2/token", null, e),
                 f = this.B();
             f.Ed(x(this.zS, this, a, b, c));
             f.Pb(e)
