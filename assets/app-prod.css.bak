@@ -8879,7 +8879,7 @@ h3.call-to-cast-text {
 }
 
 #guide.focused #user-info-background {
-  visibility: visible;
+  visibility: visible
 }
 
 #guide #user-info-background {
@@ -9104,7 +9104,7 @@ h3.call-to-cast-text {
 }
 
 #user-info-background {
-  /* display: none; */
+  display: none;
   height: 8.53em;
   position: relative;
   width: inherit;

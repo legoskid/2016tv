@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 350px;
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 12px;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #4f46e5;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Profile Settings</h1>
+
+    <label>Profile Image URL</label>
+    <input id="profileInput" type="text" placeholder="Enter image URL">
+
+    <label>Name</label>
+    <input id="nameInput" type="text" placeholder="Enter name">
+
+    <label>Status</label>
+    <input id="statusInput" type="text" placeholder="Enter status">
+
+    <button id="saveButton">Save Profile</button>
+  </div>
+
+  <script>
+    const defaultAvatar = "https://tv25.pages.dev/assets/default_pfp.png"
+
+    const profileInput = document.getElementById("profileInput")
+    const nameInput = document.getElementById("nameInput")
+    const statusInput = document.getElementById("statusInput")
+    const saveButton = document.getElementById("saveButton")
+
+    profileInput.value = localStorage.getItem("guide-profile") || defaultAvatar
+    nameInput.value = localStorage.getItem("guide-name") || "Guest"
+    statusInput.value = localStorage.getItem("guide-status") || "Offline"
+
+    saveButton.onclick = () => {
+      localStorage.setItem(
+        "guide-profile",
+        profileInput.value.trim() || defaultAvatar
+      )
+
+      localStorage.setItem(
+        "guide-name",
+        nameInput.value.trim() || "Guest"
+      )
+
+      localStorage.setItem(
+        "guide-status",
+        statusInput.value.trim() || "Offline"
+      )
+
+      alert("Saved")
+    }
+  </script>
+</body>
+</html>
