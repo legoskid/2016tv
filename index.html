@@ -277,7 +277,7 @@
     <script>
         (function(){const button = document.createElement("button")
 
-button.textContent = "Open Settings"
+button.textContent = "Open Index Settings"
 
 button.style.position = "fixed"
 button.style.top = "10px"
@@ -296,6 +296,29 @@ var settings2 = function() {
 }
 
 button.onclick = settings2
+
+document.body.appendChild(button)})();
+ (function(){const button = document.createElement("button")
+
+button.textContent = "Open ClientSide Settings"
+
+button.style.position = "fixed"
+button.style.top = "54px"
+button.style.right = "10px"
+button.style.zIndex = "999999999"
+button.style.padding = "10px 16px"
+button.style.background = "transparent"
+button.style.color = "#fff"
+button.style.border = "2px rgba(255, 255, 255, 0.1) solid"
+button.style.borderRadius = "8px"
+button.style.cursor = "pointer"
+button.style.cursor = "roboto-regular"
+
+var settings3 = function() {
+  location.replace("/settings")
+}
+
+button.onclick = settings3
 
 document.body.appendChild(button)})()
     </script>
