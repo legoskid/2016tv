@@ -8821,16 +8821,9 @@ h3.call-to-cast-text {
   transition: none
 }
 
-#guide .collapsed-guide-icon.icon-guide-my-subs {
-  display: none
-}
 
 #guide.logged-in .collapsed-guide-icon.icon-guide-my-subs {
   display: block
-}
-
-#guide.logged-in .collapsed-guide-icon.icon-popular {
-  display: none
 }
 
 .collapsed-guide-icon.icon-music {

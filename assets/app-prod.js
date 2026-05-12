@@ -36109,7 +36109,7 @@
             <div>
                 <div id="user-info-background">
                 <div class="user-info-container">
-                    <div id="guide-user-avatar" style="background-image: url(${localStorage.getItem("guide-profile")}) !important"></div>
+                    <div id="guide-user-avatar" style="background-image: url(${localStorage.getItem("guide-profile") || "https://tv25.pages/dev/ssets/default_pfp.png"}) !important"></div>
                     <div class="guide-user-text">
                     <div class="guide-user-name">${localStorage.getItem("guide-name")}</div>
                     <div class="guide-user-unlimited">${localStorage.getItem("guide-status")}</div>
