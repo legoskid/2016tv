@@ -33183,6 +33183,11 @@ window.showDialog = function (title, message) {
             }
             a = this.f.action().$b(this.buttonsattopright).Rb('[[SHOW SETTINGS BUTTONS AT THE TOP RIGHT|SHOW SETTINGS BUTTONS AT THE TOP RIGHT]]').Jb();
             this.g.push(a);
+            this.openclientsidesettings = function () {
+                window.location.href = '/settings'
+            }
+            a = this.f.action().$b(this.openclientsidesettings).Rb('[[OPEN CLIENTSIDE SETTINGS|OPEN CLIENTSIDE SETTINGS]]').Jb();
+            this.g.push(a);
         };
         d.dT = function () {
             this.ha.get(q, q)
