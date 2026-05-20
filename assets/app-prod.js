@@ -33169,6 +33169,15 @@ window.showDialog = function (title, message) {
             console.log("What is this.D?");
             console.log(this.D)
             this.g.push(a)
+            this.buttonsattopright = function () {
+                if (localStorage.getItem("buttonsattopright") == "true") {
+                    localStorage.setItem("buttonsattopright", "false");
+            } else {
+                    localStorage.setItem("buttonsattopright", "true");
+                }
+            }
+            a = this.f.action().$b(this.buttonsattopright).Rb('[[SHOW SETTINGS BUTTONS AT THE TOP RIGHT|SHOW SETTINGS BUTTONS AT THE TOP RIGHT]]').Jb();
+            this.g.push(a);
         };
         d.dT = function () {
             this.ha.get(q, q)
