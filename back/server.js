@@ -211,7 +211,7 @@ app.get('/device_204', async (req, res) => {
 });
 
 
-app.get('/api/stats/qoe', (req, res) => {
+app.get('/youtubei/v1/stats/qoe', (req, res) => {
     const qoeData = req.query;
     console.log('QoE Data received:', qoeData);
 
@@ -272,7 +272,7 @@ app.get('/api/chart', async (req, res) => {
     }
 });
 
-app.get('/api/browse', async (req, res) => {
+app.get('/youtubei/v1/browse', async (req, res) => {
     const { browseId } = req.query;
 
     if (!browseId) {

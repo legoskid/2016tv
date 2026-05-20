@@ -101,22 +101,25 @@ testBtn.onclick = () => {
   }
 
   const endpoints = [
-    { path: "/gen_204", message: "204 No Content" },
-    { path: "/youtubei/v1/guide", message: "Guide endpoint" },
-    { path: "/api/guide", message: "API guide endpoint" }
+    { path: "gen_204", message: "Generate 204" },
+    { path: "youtubei/v1/guide", message: "/youtubei/v1 GUIDE" },
+    { path: "api/guide", message: "/api/ GUIDE (NOT COMPATIBLE)" }
   ]
   const results = []
 
   Promise.all(endpoints.map(endpoint => 
     fetch(baseUrl + endpoint.path, { method: "GET" })
       .then(data => {
+        if (!data.ok) {
+          throw new Error(`HTTP ${data.status}`)
+        }
         results.push(`✓ ${endpoint.message}`)
       })
       .catch(error => {
         results.push(`✗ ${endpoint.message}: ${error.message}`)
       })
   )).then(() => {
-    testResults.textContent = "Test results:\n" + results.join("\n")
+    testResults.innerText = "Test results:\n" + results.join("\n")
   })
 }
 
