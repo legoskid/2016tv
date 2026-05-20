@@ -13783,15 +13783,26 @@ window.showDialog = function (title, message) {
 
         function Dk(a, b, c) {
 			console.log("Credits dialog opened.");
-            console.log(a);
-            console.log(b);
-            console.log(c);
+            var flag = false;
+            var settingsItems = document.querySelector("#settings-items");
+            if (settingsItems) {
+                var creditsEl = Array.from(settingsItems.querySelectorAll("*")).find(function(el) { return el.innerHTML === "CREDITS (2016TV)"; });
+                if (creditsEl) {
+                    var color = window.getComputedStyle(creditsEl).color;
+                    if (color === "rgb(34, 34, 34)" || color === "#222") {
+                        flag = true;
+                    }
+                }
+            }
             var e = new Ck;
             c = c.browser.toLowerCase();
             e.title = Dk.f;
             e.Tt = b + "/dialogs/licenses_" + c + ".html";
             e.className = "browse-sets-titled-dialog";
-            a.show(e)
+            console.log(a.show(e))
+            if (flag) {
+            document.querySelector(".browse-sets-titled-dialog .scrolling-text-content").innerText = "hi:;";
+            }
         }
         Dk.f = "[[Credits|Dialog title that shows credit information, giving credit to all open-source software used in building this product.]]";
         Dk.inject = ["dialogService", "htmlPath", "device"];
@@ -33154,11 +33165,7 @@ window.showDialog = function (title, message) {
             a = this.f.action().ep("request-tos-dialog").Rb("[[Privacy & Terms|Title of menu item which shows links to terms of service and privacy documents on youtube.com.]]").Ud("icon-settings-term").wl("terms-tile").Jb();
             this.g.push(a)
             // custom
-			this.Dasas = function () {
-                //console.log("AH");
-				window.showDialog("2016TV Credits! legoskid",`Source Code: https://github.com/legoskid/2016tv\nThanks to: halohash/2016tv (2016tv branding)\nAnd: erievs/2016YouTubeTV\n\nWow I never really thought we'd get this far in YouTube TV!\nCobalt.dev by The Chromium Authors\nIf you're reading this on a cobalt apk, I took a year to figure that out (ignore the breaks in between)`)
-            }
-            a = this.f.action().$b(this.Dasas).Rb("[[CREDITS (2016TV)|CREDITS (2016TV)]]").Jb();
+            a = this.f.action().$b(this.D).Rb("[[CREDITS (2016TV)|CREDITS (2016TV)]]").Jb();
             console.log("What is this.D?");
             console.log(this.D)
             this.g.push(a)
