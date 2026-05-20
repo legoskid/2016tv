@@ -13801,7 +13801,7 @@ window.showDialog = function (title, message) {
             e.className = "browse-sets-titled-dialog";
             console.log(a.show(e))
             if (flag) {
-            document.querySelector(".browse-sets-titled-dialog .scrolling-text-content").innerText = "hi:;";
+            document.querySelector(".browse-sets-titled-dialog .scrolling-text-content").innerText = `Source Code: https://github.com/legoskid/2016tv\nThanks to: halohash/2016tv (2016tv branding)\nAnd: erievs/2016YouTubeTV\n\nWow I never really thought we'd get this far in YouTube TV!\nCobalt.dev by The Chromium Authors\nIf you're reading this on a cobalt apk, I took a year to figure that out (ignore the breaks in between)`;
             }
         }
         Dk.f = "[[Credits|Dialog title that shows credit information, giving credit to all open-source software used in building this product.]]";
