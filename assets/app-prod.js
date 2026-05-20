@@ -8,6 +8,17 @@
     var PROXY_URL = "http://" + currentHost + ":8070"; 
     var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "https://tv36.pages.dev/";
 
+window.dialogShown = false;
+window.showDialog = function (title, message) {
+	window.dialogShown = true;
+	const dialog = document.querySelector("div#dialog.browse-sets.no-model.dialog");
+	dialog.className = "browse-sets focused browse-sets-titled-dialog dialog";
+	dialog.querySelector(".title").innerText = title;
+    dialog.querySelector(".no-model.component").innerText = message;
+    /*dialog.querySelector(".no-model.component").innerHTML = `<div class="focused scroll-pane-dialog" tabindex="-1">  <div class="scrolling-text">    <div class="scrolling-text-content"></div>  </div>  <div class="scrollbar">    <div class="handle"></div>  </div></div>`;
+    dialog.querySelector(".scrolling-text-content").innerText = message;*/
+}
+
     console.log("APP_URL:", APP_URL);
     console.log("PROXY_URL:", PROXY_URL);
 
@@ -2579,6 +2590,10 @@
             
             if (b) {
                 console.log("Hiding element:", a);  
+                if (window.dialogShown == true) {
+                    document.querySelector("div#dialog.browse-sets.focused.dialog").className = "browse-sets no-model dialog";
+					window.dialogShown = false;
+                }
                 console.log("Adding 'hidden' class to the element");
                 he(a, "hidden");
             } else {
@@ -2597,6 +2612,10 @@
                         }
                     } else {
                         console.log("Hiding element:", a);
+                        if (window.dialogShown == true) {
+                    document.querySelector("div#dialog.browse-sets.focused.dialog").className = "browse-sets no-model dialog";
+					window.dialogShown = false;
+                }
                         fe(a, "hidden");
                     }
                 }
@@ -13763,6 +13782,10 @@
         C(Ck, P);
 
         function Dk(a, b, c) {
+			console.log("Credits dialog opened.");
+            console.log(a);
+            console.log(b);
+            console.log(c);
             var e = new Ck;
             c = c.browser.toLowerCase();
             e.title = Dk.f;
@@ -32114,6 +32137,11 @@
                 var b = !this.f.Y();
                 this.g && !this.g.isDisposed() && (this.g.Ha("selected"), b && this.g.render());
                 if (this.g = a) this.g.za("selected"), b && this.g.render()
+        //console.log("Button swap");
+        if (window.dialogShown == true) {
+                    document.querySelector("div#dialog.browse-sets.focused.dialog").className = "browse-sets no-model dialog";
+					window.dialogShown = false;
+                }
             }
         };
         rv.inject = ["eventFilterFactory", "playSound"];
@@ -32526,6 +32554,7 @@
             return this
         };
         d.$b = function (a) {
+			console.log("Adding action: " + a.constructor.name);
             this.g.push(a);
             return this
         };
@@ -33115,10 +33144,23 @@
             this.g.push(a);
             a = this.f.ej(this.cb).Rb("[[Show Video Info|Title for a tile that enables showing debug information during video playback.]]").wl("videoinfo-tile").Jb();
             this.g.push(a);
+			// turn on debug features
+			this.h.aa = true;
+            this.h.Ix = true;
+            //
             this.h.aa && (a = this.f.action().$b(this.I).Rb("SHOW DEBUG INFO").Ud("warning").Jb(), this.g.push(a), a = this.f.action().$b(x(this.dT, this)).Rb("REQUEST USER PROFILE").Ud("warning").Jb(), this.g.push(a));
             this.h.Ix && (a = this.f.action().$b(this.D).Rb("[[CREDITS|Button that shows credit information, giving credit to all open-source software used in building this product.]]").Jb(),
                 this.g.push(a));
             a = this.f.action().ep("request-tos-dialog").Rb("[[Privacy & Terms|Title of menu item which shows links to terms of service and privacy documents on youtube.com.]]").Ud("icon-settings-term").wl("terms-tile").Jb();
+            this.g.push(a)
+            // custom
+			this.Dasas = function () {
+                //console.log("AH");
+				window.showDialog("2016TV Credits! legoskid",`Source Code: https://github.com/legoskid/2016tv\nThanks to: halohash/2016tv (2016tv branding)\nAnd: erievs/2016YouTubeTV\n\nWow I never really thought we'd get this far in YouTube TV!\nCobalt.dev by The Chromium Authors\nIf you're reading this on a cobalt apk, I took a year to figure that out (ignore the breaks in between)`)
+            }
+            a = this.f.action().$b(this.Dasas).Rb("[[CREDITS (2016TV)|CREDITS (2016TV)]]").Jb();
+            console.log("What is this.D?");
+            console.log(this.D)
             this.g.push(a)
         };
         d.dT = function () {

@@ -19,5 +19,8 @@
     "node-cache": "^5.1.2",
     "qrcode": "^1.5.4",
     "youtube-dl-exec": "^3.0.15"
+  },
+  "devDependencies": {
+    "eslint": "^10.4.0"
   }
 }

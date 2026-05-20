@@ -104,6 +104,9 @@ window.labels = {
         window.CLOSURE_NO_DEPS = true;
         q("https://tv25.pages.dev/assets/app-prod.css");
         n("/app-concat-bundle.js");
+	} else if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        q("/assets/app-prod.css");
+        n("/assets/app-prod.js");
     } else {
         q("https://tv25.pages.dev/assets/app-prod.css");
         n("https://tv25.pages.dev/assets/app-prod.js");
