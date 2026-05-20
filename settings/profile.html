@@ -54,6 +54,13 @@
       font-size: 16px;
       cursor: pointer;
     }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #6fb1ff;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 <body>
@@ -73,6 +80,66 @@
   </div>
 
   <script>
+    function setupDirectionalNavigation() {
+      function getNavItems() {
+        return Array.from(
+          document.querySelectorAll(
+            'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        ).filter(el => el.offsetParent !== null)
+      }
+
+      function focusByOffset(offset) {
+        const items = getNavItems()
+        if (items.length === 0) {
+          return
+        }
+
+        const activeIndex = items.indexOf(document.activeElement)
+        const currentIndex = activeIndex === -1 ? 0 : activeIndex
+        const nextIndex = (currentIndex + offset + items.length) % items.length
+        items[nextIndex].focus()
+      }
+
+      document.addEventListener("keydown", event => {
+        const key = event.key
+        const keyCode = event.keyCode
+        const isLeft = key === "ArrowLeft" || keyCode === 37
+        const isUp = key === "ArrowUp" || keyCode === 38
+        const isRight = key === "ArrowRight" || keyCode === 39
+        const isDown = key === "ArrowDown" || keyCode === 40
+
+        if (!isLeft && !isUp && !isRight && !isDown) {
+          return
+        }
+
+        const target = event.target
+        const isTextInput =
+          target instanceof HTMLInputElement &&
+          (target.type === "text" || target.type === "search" || target.type === "url")
+
+        if (isTextInput && (isLeft || isRight)) {
+          return
+        }
+
+        event.preventDefault()
+
+        if (isLeft || isUp) {
+          focusByOffset(-1)
+          return
+        }
+
+        focusByOffset(1)
+      })
+
+      const initialItems = getNavItems()
+      if (initialItems.length > 0) {
+        initialItems[0].focus()
+      }
+    }
+
+    setupDirectionalNavigation()
+
     const defaultAvatar = "https://tv25.pages.dev/assets/default_pfp.png"
 
     const profileInput = document.getElementById("profileInput")
