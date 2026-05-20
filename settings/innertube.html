@@ -58,21 +58,66 @@ button {
 
   <button id="save">Save</button>
 
+  <button id="clear">Clear</button>
+
+  <button id="test">Test</button>
+
   <div class="current" id="current"></div>
+  
+  <div class="current" id="testresults"></div>
 </div>
 
 <script>
 const input = document.getElementById("value")
 const current = document.getElementById("current")
+const testResults = document.getElementById("testresults")
+const testBtn = document.getElementById("test")
 
 function updateDisplay() {
   const value = localStorage.getItem("innertubeserver")
   current.textContent = "Current Endpoint: " + (value ?? "(not set)")
+  if (value) {
+    testBtn.disabled = false
+  } else {
+    testBtn.disabled = true
+  }
 }
 
 document.getElementById("save").onclick = () => {
   localStorage.setItem("innertubeserver", input.value)
   updateDisplay()
+}
+
+document.getElementById("clear").onclick = () => {
+  localStorage.removeItem("innertubeserver")
+  updateDisplay()
+}
+
+testBtn.onclick = () => {
+  const baseUrl = input.value
+  if (!baseUrl) {
+    testResults.textContent = "Please enter a URL to test."
+    return
+  }
+
+  const endpoints = [
+    { path: "/gen_204", message: "204 No Content" },
+    { path: "/youtubei/v1/guide", message: "Guide endpoint" },
+    { path: "/api/guide", message: "API guide endpoint" }
+  ]
+  const results = []
+
+  Promise.all(endpoints.map(endpoint => 
+    fetch(baseUrl + endpoint.path, { method: "GET" })
+      .then(data => {
+        results.push(`✓ ${endpoint.message}`)
+      })
+      .catch(error => {
+        results.push(`✗ ${endpoint.message}: ${error.message}`)
+      })
+  )).then(() => {
+    testResults.textContent = "Test results:\n" + results.join("\n")
+  })
 }
 
 const existing = localStorage.getItem("innertubeserver")
