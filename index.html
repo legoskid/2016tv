@@ -290,7 +290,7 @@ button.style.border = "2px rgba(255, 255, 255, 0.1) solid"
 button.style.borderRadius = "8px"
 button.style.cursor = "pointer"
 button.style.cursor = "roboto-regular"
-if (localStorage.getItem("buttonsattopright") === "true") {
+if (localStorage.getItem("buttonsattopright") === "false") {
   button.style.display = "none";
 }
 
@@ -316,6 +316,9 @@ button.style.border = "2px rgba(255, 255, 255, 0.1) solid"
 button.style.borderRadius = "8px"
 button.style.cursor = "pointer"
 button.style.cursor = "roboto-regular"
+if (localStorage.getItem("buttonsattopright") === "false") {
+  button.style.display = "none";
+}
 
 var settings3 = function() {
   location.replace("/settings")

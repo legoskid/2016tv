@@ -33172,8 +33172,13 @@ window.showDialog = function (title, message) {
             this.buttonsattopright = function () {
                 if (localStorage.getItem("buttonsattopright") == "true") {
                     localStorage.setItem("buttonsattopright", "false");
+                document.body.lastElementChild.style.display = "none";
+                document.querySelector('body > *:nth-last-child(2)').style.display = "none";
+
             } else {
                     localStorage.setItem("buttonsattopright", "true");
+                    document.body.lastElementChild.style.removeProperty('display');
+                document.querySelector('body > *:nth-last-child(2)').style.removeProperty('display');
                 }
             }
             a = this.f.action().$b(this.buttonsattopright).Rb('[[SHOW SETTINGS BUTTONS AT THE TOP RIGHT|SHOW SETTINGS BUTTONS AT THE TOP RIGHT]]').Jb();
