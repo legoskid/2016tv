@@ -6595,7 +6595,7 @@ window.showDialog = function (title, message) {
             z(c, b.TK());
             a().f(eh.f, c)
         }
-        eh.f = APP_URL + "/device_204";
+        eh.f = INNERTUBE_URL + "device_204";
         eh.inject = ["reportFactory", "statsService"];
         var fh = {
             I1: "autoplay-enabled",
@@ -28092,7 +28092,7 @@ window.showDialog = function (title, message) {
         
                 // Use the proxy URLs
                 a = PROXY_URL + "/http://youtube.com/api/lounge/bc/test";
-                b = APP_URL + "/api/lounge/bc/bind";
+                b = INNERTUBE_URL + "youtubei/v1/lounge/bc/bind";
         
                 console.log("Connection URLs:", { connectUrl: a, bindUrl: b });
         
@@ -33096,7 +33096,7 @@ window.showDialog = function (title, message) {
 
         function Nv() { }
         Nv.prototype.f = function (a) {
-            return APP_URL + "/api/chart?cht=qr&chs=350x350&chl=" + (a)
+            return INNERTUBE_URL + "youtubei/v1/chart?cht=qr&chs=350x350&chl=" + (a)
         };
 
         function Ov(a, b, c, e, f, g, k, l, p, r, u, w, A, G, T, W, Y, ma, va, eb, fb, Lb) {
