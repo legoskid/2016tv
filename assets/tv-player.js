@@ -3,7 +3,19 @@
     var currentPort = window.location.port;
 
     var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");  
-    var PROXY_URL = "http://" + currentHost + ":8070"; 
+    var PROXY_URL = "http://" + currentHost + ":8070";
+    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "http://whale.x10.mx/tv/";
+    var DEFAULT_INNERTUBE_HOST = currentHost + ":" + (currentPort || "8090");
+    var INNERTUBE_HOST = (function (a) {
+        try {
+            return new URL(a, window.location.href).host || DEFAULT_INNERTUBE_HOST;
+        } catch (b) {
+            a = (a || "").replace(/^https?:\/\//i, "");
+            a = a.split("/")[0];
+            return a || DEFAULT_INNERTUBE_HOST;
+        }
+    })(INNERTUBE_URL);
+    var INNERTUBE_HOST_RE = INNERTUBE_HOST.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
     console.log("APP_URL:", APP_URL);
     console.log("PROXY_URL:", PROXY_URL);
@@ -4980,20 +4992,36 @@
 
         var Wk = null;
         
-        var Yk = new RegExp("^https?:\\/\\/(([-\\w]*www[-\\w]*\\.|[-\\w]*web[-\\w]*\\.|[-\\w]*canary[-\\w]*\\.|[-\\w]*qa[-\\w]*\\.|[-\\w]*dev[-\\w]*\\.|[-\\w]{1,3}\\.)+youtube(education|-nocookie)?\\.com\\/|(m\\.)?[a-z0-9\\-]{1,63}\\.([a-z]{3}|i)\\.corp\\.google\\.com(:[0-9]+)?\\/|0\\.borg-playground-[a-z0-9\\-]+\\.youtube-dev\\.([a-z]{2}|i)\\.borg\\.google\\.com(:[0-9]+)?\\/|m?web-ppg\\.corp\\.google\\.com\\/|(?:uytfe\\.corp|dev-uytfe\\.corp|uytfe\\.sandbox)\\.google\\.com\\/|(docs|drive)\\.google\\.com\\/(a\\/[^/\\\\%]+\\/|)|play\\.google\\.com\\/|[A-Za-z0-9]+\\.prod\\.google\\.com(:[0-9]+)?\\/|localhost:8090\\/|" + APP_URL + "|" + PROXY_URL + ")");
-            Zk = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|docs\.google\.com|drive\.google\.com|prod\.google\.com|sandbox\.google\.com|plus\.google\.com|mail\.google\.com|youtube\.com|youtubeeducation\.com)(:[0-9]+)?([\/\?\#]|$|localhost:8090)/,
-            $k = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|borg\.google\.com|prod\.google\.com|sandbox\.google\.com|youtube\.com)(:[0-9]+)?([\/\?\#]|$|localhost:8090)/,
-            al = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|borg\.google\.com|prod\.google\.com|video\.google\.com|youtube\.com|youtube\.googleapis\.com|youtube-nocookie\.com|youtubeeducation\.com)(:[0-9]+)?\/+embed(\/+|\?|#|$|localhost:8090)/,
-            bl = /^((http(s)?):)?\/\/((((lh[3-6](-tt|-d[a-g,z])?\.((ggpht)|(googleusercontent)|(google)))|(([1-4]\.bp\.blogspot)|(bp[0-3]\.blogger))|((((cp|ci|gp)[3-6])|(ap[1-2]))\.(ggpht|googleusercontent))|(gm[1-4]\.ggpht)|(((yt[3-4])|(sp[1-3]))\.(ggpht|googleusercontent)))\.com)|(dp[3-6]\.googleusercontent\.cn)|(dp4\.googleusercontent\.com)|(photos\-image\-(dev|qa)(-auth)?\.corp\.google\.com)|((dev|dev2|dev3|qa|qa2|qa3|qa-red|qa-blue|canary)[-.]lighthouse\.sandbox\.google\.com\/image)|(image\-dev\-lighthouse(-auth)?\.sandbox\.google\.com(\/image)?))\/|^https?:\/\/(s2\.googleusercontent\.com\/s2\/favicons\?|yt[3-4]\.ggpht\.com\/|([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|borg\.google\.com|docs\.google\.com|drive\.google\.com|googleplex\.com|play\.google\.com|prod\.google\.com|sandbox\.google\.com|plus\.google\.com|video\.google\.com|youtube\.com|ytimg\.com)(:[0-9]+)?([\/\?\#]|$|localhost:8090))/,
-            cl = /^https?.*#ocr$|^https?:\/\/(secure\-..\.imrworldwide\.com\/|cdn\.imrworldwide\.com\/|aksecure\.imrworldwide\.com\/|localhost:8090)/,
-            dl = /^https?:\/\/(www\.google\.com\/(aclk|pagead\/conversion)|www\.googleadservices\.com\/(aclk|pagead\/(aclk|conversion))|googleads\.g\.doubleclick\.net\/(aclk|pagead\/conversion)|www\.youtube-nocookie\.com\/api\/ads\/trueview_redirect|www\.googleadservices\.com\/trueview_inred|localhost:8090)/,
-            el = /^https?:\/\/(www\.google\.com\/pagead\/sul|www\.youtube\.com\/pagead\/sul|localhost:8090)/,
-            fl = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(ba\.l\.google\.com|c\.googlesyndication\.com|corp\.google\.com|borg\.google\.com|docs\.google\.com|drive\.google\.com|googleplex\.com|googlevideo\.com|play\.google\.com|prod\.google\.com|sandbox\.google\.com|plus\.google\.com|ed\.video\.google\.com|vp\.video\.l\.google\.com|youtube\.com|youtubeeducation\.com|xfx7\.com|localhost:8090)(:[0-9]+)?([\/\?\#]|$)/,
-            gl = /^https?:\/\/(www\.gstatic\.com\/doubleclick\/studio\/innovation\/ytplayer|www\.gstatic\.com\/doubleclick\/studio\/innovation\/h5\/layouts\/tetris|tpc\.googlesyndication\.com\/safeframe\/|lightbox-(demos|builder)\.appspot\.com\/|([A-Za-z0-9-]{1,63}\.)*(imasdk\.googleapis\.com|2mdn\.net|googlesyndication\.com|corp\.google\.com|borg\.google\.com|googleads\.g\.doubleclick\.net|prod\.google\.com|static\.doubleclick\.net|static\.googleadsserving\.cn|studioapi\.doubleclick\.net|youtube\.com|youtube\.googleapis\.com|youtube-nocookie\.com|youtubeeducation\.com|ytimg\.com|localhost:8090)(:[0-9]+)?([\/\?\#]|$))/,
-            hl = /^https?:\/\/(sf\.api\.[a-z0-9\-]+\.km\.playstation\.net\/|([A-Za-z0-9-]{1,63}\.)*(themis\.dl\.playstation\.net|localhost:8090)(:[0-9]+)?([\/\?\#]|$))/,
-            il = /^https?:\/\/((www\.|encrypted\.)?google(\.com|\.co)?\.[a-z]{2,3}\/(search|webhp)\?|24e12c4a-a-95274a9c-s-sites.googlegroups.com\/a\/google.com\/flash-api-test-harness\/apiharness.swf|www\.gstatic\.com\/doubleclick\/studio\/innovation\/h5\/layouts\/tetris|tpc\.googlesyndication\.com\/safeframe\/|lightbox-(demos|builder)\.appspot\.com\/|([A-Za-z0-9-]{1,63}\.)*(imasdk\.googleapis\.com|corp\.google\.com|borg\.google\.com|docs\.google\.com|drive\.google\.com|googleads\.g\.doubleclick\.net|googleplex\.com|play\.google\.com|prod\.google\.com|sandbox\.google\.com|photos\.google\.com|picasaweb\.google\.com|lh2\.google\.com|plus\.google\.com|spaces\.google\.com|books\.googleusercontent\.com|mail\.google\.com|talkgadget\.google\.com|survey\.g\.doubleclick\.net|youtube\.com|youtube\.googleapis\.com|youtube-nocookie\.com|youtubeeducation\.com|vevo\.com|localhost:8090)(:[0-9]+)?([\/\?\#]|$))/;
+        var Yk = new RegExp("^https?:\\/\\/(([-\\w]*www[-\\w]*\\.|[-\\w]*web[-\\w]*\\.|[-\\w]*canary[-\\w]*\\.|[-\\w]*qa[-\\w]*\\.|[-\\w]*dev[-\\w]*\\.|[-\\w]{1,3}\\.)+youtube(education|-nocookie)?\\.com\\/|(m\\.)?[a-z0-9\\-]{1,63}\\.([a-z]{3}|i)\\.corp\\.google\\.com(:[0-9]+)?\\/|0\\.borg-playground-[a-z0-9\\-]+\\.youtube-dev\\.([a-z]{2}|i)\\.borg\\.google\\.com(:[0-9]+)?\\/|m?web-ppg\\.corp\\.google\\.com\\/|(?:uytfe\\.corp|dev-uytfe\\.corp|uytfe\\.sandbox)\\.google\\.com\\/|(docs|drive)\\.google\\.com\\/(a\\/[^/\\\\%]+\\/|)|play\\.google\\.com\\/|[A-Za-z0-9]+\\.prod\\.google\\.com(:[0-9]+)?\\/|" + INNERTUBE_HOST_RE + "\\/|" + APP_URL + "|" + PROXY_URL + ")");
+            Zk = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|docs\.google\.com|drive\.google\.com|prod\.google\.com|sandbox\.google\.com|plus\.google\.com|mail\.google\.com|youtube\.com|youtubeeducation\.com)(:[0-9]+)?([\/\?\#]|$|__INNERTUBE_HOST__)/,
+            $k = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|borg\.google\.com|prod\.google\.com|sandbox\.google\.com|youtube\.com)(:[0-9]+)?([\/\?\#]|$|__INNERTUBE_HOST__)/,
+            al = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|borg\.google\.com|prod\.google\.com|video\.google\.com|youtube\.com|youtube\.googleapis\.com|youtube-nocookie\.com|youtubeeducation\.com)(:[0-9]+)?\/+embed(\/+|\?|#|$|__INNERTUBE_HOST__)/,
+            bl = /^((http(s)?):)?\/\/((((lh[3-6](-tt|-d[a-g,z])?\.((ggpht)|(googleusercontent)|(google)))|(([1-4]\.bp\.blogspot)|(bp[0-3]\.blogger))|((((cp|ci|gp)[3-6])|(ap[1-2]))\.(ggpht|googleusercontent))|(gm[1-4]\.ggpht)|(((yt[3-4])|(sp[1-3]))\.(ggpht|googleusercontent)))\.com)|(dp[3-6]\.googleusercontent\.cn)|(dp4\.googleusercontent\.com)|(photos\-image\-(dev|qa)(-auth)?\.corp\.google\.com)|((dev|dev2|dev3|qa|qa2|qa3|qa-red|qa-blue|canary)[-.]lighthouse\.sandbox\.google\.com\/image)|(image\-dev\-lighthouse(-auth)?\.sandbox\.google\.com(\/image)?))\/|^https?:\/\/(s2\.googleusercontent\.com\/s2\/favicons\?|yt[3-4]\.ggpht\.com\/|([A-Za-z0-9-]{1,63}\.)*(corp\.google\.com|borg\.google\.com|docs\.google\.com|drive\.google\.com|googleplex\.com|play\.google\.com|prod\.google\.com|sandbox\.google\.com|plus\.google\.com|video\.google\.com|youtube\.com|ytimg\.com)(:[0-9]+)?([\/\?\#]|$|__INNERTUBE_HOST__))/,
+            cl = /^https?.*#ocr$|^https?:\/\/(secure\-..\.imrworldwide\.com\/|cdn\.imrworldwide\.com\/|aksecure\.imrworldwide\.com\/|__INNERTUBE_HOST__)/,
+            dl = /^https?:\/\/(www\.google\.com\/(aclk|pagead\/conversion)|www\.googleadservices\.com\/(aclk|pagead\/(aclk|conversion))|googleads\.g\.doubleclick\.net\/(aclk|pagead\/conversion)|www\.youtube-nocookie\.com\/api\/ads\/trueview_redirect|www\.googleadservices\.com\/trueview_inred|__INNERTUBE_HOST__)/,
+            el = /^https?:\/\/(www\.google\.com\/pagead\/sul|www\.youtube\.com\/pagead\/sul|__INNERTUBE_HOST__)/,
+            fl = /^https?:\/\/([A-Za-z0-9-]{1,63}\.)*(ba\.l\.google\.com|c\.googlesyndication\.com|corp\.google\.com|borg\.google\.com|docs\.google\.com|drive\.google\.com|googleplex\.com|googlevideo\.com|play\.google\.com|prod\.google\.com|sandbox\.google\.com|plus\.google\.com|ed\.video\.google\.com|vp\.video\.l\.google\.com|youtube\.com|youtubeeducation\.com|xfx7\.com|__INNERTUBE_HOST__)(:[0-9]+)?([\/\?\#]|$)/,
+            gl = /^https?:\/\/(www\.gstatic\.com\/doubleclick\/studio\/innovation\/ytplayer|www\.gstatic\.com\/doubleclick\/studio\/innovation\/h5\/layouts\/tetris|tpc\.googlesyndication\.com\/safeframe\/|lightbox-(demos|builder)\.appspot\.com\/|([A-Za-z0-9-]{1,63}\.)*(imasdk\.googleapis\.com|2mdn\.net|googlesyndication\.com|corp\.google\.com|borg\.google\.com|googleads\.g\.doubleclick\.net|prod\.google\.com|static\.doubleclick\.net|static\.googleadsserving\.cn|studioapi\.doubleclick\.net|youtube\.com|youtube\.googleapis\.com|youtube-nocookie\.com|youtubeeducation\.com|ytimg\.com|__INNERTUBE_HOST__)(:[0-9]+)?([\/\?\#]|$))/,
+            hl = /^https?:\/\/(sf\.api\.[a-z0-9\-]+\.km\.playstation\.net\/|([A-Za-z0-9-]{1,63}\.)*(themis\.dl\.playstation\.net|__INNERTUBE_HOST__)(:[0-9]+)?([\/\?\#]|$))/,
+            il = /^https?:\/\/((www\.|encrypted\.)?google(\.com|\.co)?\.[a-z]{2,3}\/(search|webhp)\?|24e12c4a-a-95274a9c-s-sites.googlegroups.com\/a\/google.com\/flash-api-test-harness\/apiharness.swf|www\.gstatic\.com\/doubleclick\/studio\/innovation\/h5\/layouts\/tetris|tpc\.googlesyndication\.com\/safeframe\/|lightbox-(demos|builder)\.appspot\.com\/|([A-Za-z0-9-]{1,63}\.)*(imasdk\.googleapis\.com|corp\.google\.com|borg\.google\.com|docs\.google\.com|drive\.google\.com|googleads\.g\.doubleclick\.net|googleplex\.com|play\.google\.com|prod\.google\.com|sandbox\.google\.com|photos\.google\.com|picasaweb\.google\.com|lh2\.google\.com|plus\.google\.com|spaces\.google\.com|books\.googleusercontent\.com|mail\.google\.com|talkgadget\.google\.com|survey\.g\.doubleclick\.net|youtube\.com|youtube\.googleapis\.com|youtube-nocookie\.com|youtubeeducation\.com|vevo\.com|__INNERTUBE_HOST__)(:[0-9]+)?([\/\?\#]|$))/;
 
-        var jl = ["2mdn.net", "localhost:8090", APP_URL, PROXY_URL];
+        function Xk(a) {
+            return new RegExp(a.source.replace(/__INNERTUBE_HOST__/g, INNERTUBE_HOST_RE), a.flags);
+        }
+
+        Zk = Xk(Zk);
+        $k = Xk($k);
+        al = Xk(al);
+        bl = Xk(bl);
+        cl = Xk(cl);
+        dl = Xk(dl);
+        el = Xk(el);
+        fl = Xk(fl);
+        gl = Xk(gl);
+        hl = Xk(hl);
+        il = Xk(il);
+
+        var jl = ["2mdn.net", INNERTUBE_HOST, APP_URL, PROXY_URL];
 
 
         function kl(a) {
@@ -21075,7 +21103,7 @@
             return VE()
         };
         var YE = ["*.googlesyndication.com", "gcdn.2mdn.net"],
-            ZE = ["*.youtu.be", "*.youtube.com", "localhost:8090", PROXY_URL, APP_URL],
+            ZE = ["*.youtu.be", "*.youtube.com", INNERTUBE_HOST, PROXY_URL, APP_URL],
             $E = "ad.doubleclick.net bid.g.doubleclick.net corp.google.com ggpht.com google.co.uk google.com googleads.g.doubleclick.net googleads4.g.doubleclick.net googleadservices.com googlesyndication.com googleusercontent.com gstatic.com gvt1.com prod.google.com pubads.g.doubleclick.net s0.2mdn.net static.doubleclick.net static.doubleclick.net surveys.g.doubleclick.net youtube.com ytimg.com".split(" "),
             aF = ["c.googlesyndication.com"],
             bF = ["googleads.g.doubleclick.net", "pubads.g.doubleclick.net"];
