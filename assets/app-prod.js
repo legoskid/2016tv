@@ -6,7 +6,7 @@
     var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");  
     var APP_HOST =  currentHost;  
     var PROXY_URL = "http://" + currentHost + ":8070"; 
-    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "https://tv36.pages.dev/";
+    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "http://whale.x10.mx/tv/";
 
 window.dialogShown = false;
 window.showDialog = function (title, message) {
