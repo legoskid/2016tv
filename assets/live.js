@@ -34,11 +34,19 @@ window.labels = {
     var l = window.appRoot + window.label;
 
     function n(d) {
-        document.write('<script src="' + d + '"><\/script>');
+        var s = document.createElement("script");
+        s.src = d;
+        document.currentScript
+            ? document.currentScript.parentNode.insertBefore(s, document.currentScript.nextSibling)
+            : document.head.appendChild(s);
     }
 
     function p(d) {
-        document.write("<script>" + d + "<\/script>");
+        var s = document.createElement("script");
+        s.textContent = d;
+        document.currentScript
+            ? document.currentScript.parentNode.insertBefore(s, document.currentScript.nextSibling)
+            : document.head.appendChild(s);
     }
 
     function q(d) {
