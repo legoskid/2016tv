@@ -13783,15 +13783,26 @@ window.showDialog = function (title, message) {
 
         function Dk(a, b, c) {
 			console.log("Credits dialog opened.");
-            console.log(a);
-            console.log(b);
-            console.log(c);
+            var flag = false;
+            var settingsItems = document.querySelector("#settings-items");
+            if (settingsItems) {
+                var creditsEl = Array.from(settingsItems.querySelectorAll("*")).find(function(el) { return el.innerHTML === "CREDITS (2016TV)"; });
+                if (creditsEl) {
+                    var color = window.getComputedStyle(creditsEl).color;
+                    if (color === "rgb(34, 34, 34)" || color === "#222") {
+                        flag = true;
+                    }
+                }
+            }
             var e = new Ck;
             c = c.browser.toLowerCase();
             e.title = Dk.f;
             e.Tt = b + "/dialogs/licenses_" + c + ".html";
             e.className = "browse-sets-titled-dialog";
-            a.show(e)
+            console.log(a.show(e))
+            if (flag) {
+            document.querySelector(".browse-sets-titled-dialog .scrolling-text-content").innerText = `Source Code: https://github.com/legoskid/2016tv\nThanks to: halohash/2016tv (2016tv branding)\nAnd: erievs/2016YouTubeTV\n\nWow I never really thought we'd get this far in YouTube TV!\nCobalt.dev by The Chromium Authors\nIf you're reading this on a cobalt apk, I took a year to figure that out (ignore the breaks in between)`;
+            }
         }
         Dk.f = "[[Credits|Dialog title that shows credit information, giving credit to all open-source software used in building this product.]]";
         Dk.inject = ["dialogService", "htmlPath", "device"];
@@ -33154,14 +33165,29 @@ window.showDialog = function (title, message) {
             a = this.f.action().ep("request-tos-dialog").Rb("[[Privacy & Terms|Title of menu item which shows links to terms of service and privacy documents on youtube.com.]]").Ud("icon-settings-term").wl("terms-tile").Jb();
             this.g.push(a)
             // custom
-			this.Dasas = function () {
-                //console.log("AH");
-				window.showDialog("2016TV Credits! legoskid",`Source Code: https://github.com/legoskid/2016tv\nThanks to: halohash/2016tv (2016tv branding)\nAnd: erievs/2016YouTubeTV\n\nWow I never really thought we'd get this far in YouTube TV!\nCobalt.dev by The Chromium Authors\nIf you're reading this on a cobalt apk, I took a year to figure that out (ignore the breaks in between)`)
-            }
-            a = this.f.action().$b(this.Dasas).Rb("[[CREDITS (2016TV)|CREDITS (2016TV)]]").Jb();
+            a = this.f.action().$b(this.D).Rb("[[CREDITS (2016TV)|CREDITS (2016TV)]]").Jb();
             console.log("What is this.D?");
             console.log(this.D)
             this.g.push(a)
+            this.buttonsattopright = function () {
+                if (localStorage.getItem("buttonsattopright") == "true") {
+                    localStorage.setItem("buttonsattopright", "false");
+                document.body.lastElementChild.style.display = "none";
+                document.querySelector('body > *:nth-last-child(2)').style.display = "none";
+
+            } else {
+                    localStorage.setItem("buttonsattopright", "true");
+                    document.body.lastElementChild.style.removeProperty('display');
+                document.querySelector('body > *:nth-last-child(2)').style.removeProperty('display');
+                }
+            }
+            a = this.f.action().$b(this.buttonsattopright).Rb('[[SHOW SETTINGS BUTTONS AT THE TOP RIGHT|SHOW SETTINGS BUTTONS AT THE TOP RIGHT]]').Jb();
+            this.g.push(a);
+            this.openclientsidesettings = function () {
+                window.location.href = '/settings'
+            }
+            a = this.f.action().$b(this.openclientsidesettings).Rb('[[OPEN CLIENTSIDE SETTINGS|OPEN CLIENTSIDE SETTINGS]]').Jb();
+            this.g.push(a);
         };
         d.dT = function () {
             this.ha.get(q, q)

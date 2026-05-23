@@ -48,16 +48,86 @@ button {
   font-size: 14px;
   opacity: 0.8;
 }
+
+a {
+  display: block;
+  color: #9ac7ff;
+  text-decoration: none;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #2a2a2a;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #6fb1ff;
+  outline-offset: 2px;
+}
 </style>
 </head>
 <body>
 <div class="box">
   <h2>Settings</h2>
 
-  <a href="innertube">InnerTube Endpoint</a>
-  <a href="profile">Profile</a>
+  <a href="innertube.html">InnerTube Endpoint</a>
+  <a href="profile.html">Profile</a>
+  <a href="/">Back</a>
 </div>
-</div>
+
+<script>
+function setupDirectionalNavigation() {
+  function getNavItems() {
+    return Array.from(
+      document.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter(el => el.offsetParent !== null)
+  }
+
+  function focusByOffset(offset) {
+    const items = getNavItems()
+    if (items.length === 0) {
+      return
+    }
+
+    const activeIndex = items.indexOf(document.activeElement)
+    const currentIndex = activeIndex === -1 ? 0 : activeIndex
+    const nextIndex = (currentIndex + offset + items.length) % items.length
+    items[nextIndex].focus()
+  }
+
+  document.addEventListener("keydown", event => {
+    const key = event.key
+    const keyCode = event.keyCode
+    const isLeft = key === "ArrowLeft" || keyCode === 37
+    const isUp = key === "ArrowUp" || keyCode === 38
+    const isRight = key === "ArrowRight" || keyCode === 39
+    const isDown = key === "ArrowDown" || keyCode === 40
+
+    if (!isLeft && !isUp && !isRight && !isDown) {
+      return
+    }
+
+    event.preventDefault()
+
+    if (isLeft || isUp) {
+      focusByOffset(-1)
+      return
+    }
+
+    focusByOffset(1)
+  })
+
+  const initialItems = getNavItems()
+  if (initialItems.length > 0) {
+    initialItems[0].focus()
+  }
+}
+
+setupDirectionalNavigation()
+</script>
 
 </body>
 </html>

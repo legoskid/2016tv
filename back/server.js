@@ -109,6 +109,8 @@ app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
 app.use('/logs', express.static(path.join(__dirname, '../logs')));
 
+app.use('/settings', express.static(path.join(__dirname, '../settings')));
+
 
 app.get('/', (req, res) => {
     console.log('Received request for the root endpoint');
@@ -209,7 +211,7 @@ app.get('/device_204', async (req, res) => {
 });
 
 
-app.get('/api/stats/qoe', (req, res) => {
+app.get('/youtubei/v1/stats/qoe', (req, res) => {
     const qoeData = req.query;
     console.log('QoE Data received:', qoeData);
 
@@ -270,7 +272,7 @@ app.get('/api/chart', async (req, res) => {
     }
 });
 
-app.get('/api/browse', async (req, res) => {
+app.get('/youtubei/v1/browse', async (req, res) => {
     const { browseId } = req.query;
 
     if (!browseId) {
@@ -334,7 +336,7 @@ app.post('/api/lounge/pairing/get_lounge_token_batch', async (req, res) => {
     }
 });
 
-app.get('/api/lounge/pairing/get_pairing_code', async (req, res) => {
+app.get('/youtubei/v1/lounge/pairing/get_pairing_code', async (req, res) => {
     const { screenId } = req.query;
 
     if (!screenId) {
@@ -356,7 +358,7 @@ app.get('/api/lounge/pairing/get_pairing_code', async (req, res) => {
 });
 
 
-app.post('/api/lounge/pairing/register_pairing_code', async (req, res) => {
+app.post('/youtubei/v1/lounge/pairing/register_pairing_code', async (req, res) => {
     const { pairingCode } = req.body;
 
     if (!pairingCode) {
@@ -377,7 +379,7 @@ app.post('/api/lounge/pairing/register_pairing_code', async (req, res) => {
     }
 });
 
-app.get('/api/lounge/pairing/get_lounge_details', async (req, res) => {
+app.get('/youtubei/v1/lounge/pairing/get_lounge_details', async (req, res) => {
     const { screenId } = req.query;
 
     if (!screenId) {
@@ -398,7 +400,7 @@ app.get('/api/lounge/pairing/get_lounge_details', async (req, res) => {
     }
 });
 
-app.all('/api/lounge/bc/bind', async (req, res) => {
+app.all('/youtubei/v1/lounge/bc/bind', async (req, res) => {
     try {
         const youtubeApiUrl = 'https://www.youtube.com/api/lounge/bc/bind';
         
@@ -466,7 +468,7 @@ app.all('/api/lounge/bc/bind', async (req, res) => {
 
 
 
-app.post('/api/browse', async (req, res) => {
+app.post('/youtubei/v1/browse', async (req, res) => {
     const { browseId } = req.body;
 
     const authHeader = req.headers.authorization ? req.headers.authorization.split(' ')[1] : null;
@@ -511,10 +513,10 @@ async function handleGuideRequest(req, res) {
 
 
 
-app.get('/api/guide', handleGuideRequest);
-app.post('/api/guide', handleGuideRequest);
+app.get('/youtubei/v1/guide', handleGuideRequest);
+app.post('/youtubei/v1/guide', handleGuideRequest);
 
-app.post('/api/next', async (req, res) => {
+app.post('/youtubei/v1/next', async (req, res) => {
     const { videoId } = req.body;
 
     if (typeof videoId !== 'string' || !videoId.trim()) {
@@ -542,7 +544,7 @@ app.post('/api/next', async (req, res) => {
 
 
 
-app.post('/api/search', handleSearchRequest);
+app.post('/youtubei/v1/search', handleSearchRequest);
 
 
 app.listen(port, serverIp, () => {

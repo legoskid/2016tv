@@ -48,6 +48,23 @@ button {
   font-size: 14px;
   opacity: 0.8;
 }
+
+a {
+  display: block;
+  color: #9ac7ff;
+  text-decoration: none;
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #2a2a2a;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #6fb1ff;
+  outline-offset: 2px;
+}
 </style>
 </head>
 <body>
@@ -58,21 +75,131 @@ button {
 
   <button id="save">Save</button>
 
+  <button id="clear">Clear</button>
+
+  <button id="test">Test</button>
+
+  <a href="/">Back</a>
+
   <div class="current" id="current"></div>
+  
+  <div class="current" id="testresults"></div>
 </div>
 
 <script>
+function setupDirectionalNavigation() {
+  function getNavItems() {
+    return Array.from(
+      document.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter(el => el.offsetParent !== null)
+  }
+
+  function focusByOffset(offset) {
+    const items = getNavItems()
+    if (items.length === 0) {
+      return
+    }
+
+    const activeIndex = items.indexOf(document.activeElement)
+    const currentIndex = activeIndex === -1 ? 0 : activeIndex
+    const nextIndex = (currentIndex + offset + items.length) % items.length
+    items[nextIndex].focus()
+  }
+
+  document.addEventListener("keydown", event => {
+    const key = event.key
+    const keyCode = event.keyCode
+    const isLeft = key === "ArrowLeft" || keyCode === 37
+    const isUp = key === "ArrowUp" || keyCode === 38
+    const isRight = key === "ArrowRight" || keyCode === 39
+    const isDown = key === "ArrowDown" || keyCode === 40
+
+    if (!isLeft && !isUp && !isRight && !isDown) {
+      return
+    }
+
+    const target = event.target
+    const isTextInput =
+      target instanceof HTMLInputElement &&
+      (target.type === "text" || target.type === "search" || target.type === "url")
+
+    if (isTextInput && (isLeft || isRight)) {
+      return
+    }
+
+    event.preventDefault()
+
+    if (isLeft || isUp) {
+      focusByOffset(-1)
+      return
+    }
+
+    focusByOffset(1)
+  })
+
+  const initialItems = getNavItems()
+  if (initialItems.length > 0) {
+    initialItems[0].focus()
+  }
+}
+
+setupDirectionalNavigation()
+
 const input = document.getElementById("value")
 const current = document.getElementById("current")
+const testResults = document.getElementById("testresults")
+const testBtn = document.getElementById("test")
 
 function updateDisplay() {
   const value = localStorage.getItem("innertubeserver")
   current.textContent = "Current Endpoint: " + (value ?? "(not set)")
+  if (value) {
+    testBtn.disabled = false
+  } else {
+    testBtn.disabled = true
+  }
 }
 
 document.getElementById("save").onclick = () => {
   localStorage.setItem("innertubeserver", input.value)
   updateDisplay()
+}
+
+document.getElementById("clear").onclick = () => {
+  localStorage.removeItem("innertubeserver")
+  updateDisplay()
+}
+
+testBtn.onclick = () => {
+  const baseUrl = input.value
+  if (!baseUrl) {
+    testResults.textContent = "Please enter a URL to test."
+    return
+  }
+
+  const endpoints = [
+    { path: "gen_204", message: "Generate 204" },
+    { path: "youtubei/v1/guide", message: "/youtubei/v1 GUIDE" },
+    { path: "api/guide", message: "/api/ GUIDE (NOT COMPATIBLE)" }
+  ]
+  const results = []
+
+  Promise.all(endpoints.map(endpoint => 
+    fetch(baseUrl + endpoint.path, { method: "GET" })
+      .then(data => {
+        if (!data.ok) {
+          throw new Error(`HTTP ${data.status}`)
+        }
+        results.push(`✓ ${endpoint.message}`)
+      })
+      .catch(error => {
+        results.push(`✗ ${endpoint.message}: ${error.message}`)
+      })
+  )).then(() => {
+    testResults.innerText = "Test results:\n" + results.join("\n")
+  })
 }
 
 const existing = localStorage.getItem("innertubeserver")
