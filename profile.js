@@ -16,11 +16,11 @@ function applyGuideProfile() {
     avatar.style.backgroundImage = `url("${profile}") !important`
   }
 
-  document.querySelectorAll(".guide-user-name").forEach(el => {
+  Array.prototype.forEach.call(document.querySelectorAll(".guide-user-name"), function(el) {
     el.textContent = name
   })
 
-  document.querySelectorAll(".guide-user-unlimited").forEach(el => {
+  Array.prototype.forEach.call(document.querySelectorAll(".guide-user-unlimited"), function(el) {
     el.textContent = status
   })
 }
