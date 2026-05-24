@@ -546,6 +546,11 @@ app.post('/youtubei/v1/next', async (req, res) => {
 
 app.post('/youtubei/v1/search', handleSearchRequest);
 
+app.get('/profile.js', (req, res) => {
+    console.log('Stupid Workaround Activated!');
+    res.sendFile(path.join(__dirname, '../profile.js'));
+});
+
 
 app.listen(port, serverIp, () => {
     console.log(`Server running at http://` + serverIp + `:` + port);

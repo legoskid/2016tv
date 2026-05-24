@@ -33,20 +33,38 @@ window.labels = {
 
     var l = window.appRoot + window.label;
 
+    var _queue = [];
+    var _running = false;
+
+    function _runQueue() {
+        if (_running || _queue.length === 0) return;
+        _running = true;
+        var item = _queue.shift();
+        item(function() {
+            _running = false;
+            _runQueue();
+        });
+    }
+
     function n(d) {
-        var s = document.createElement("script");
-        s.src = d;
-        document.currentScript
-            ? document.currentScript.parentNode.insertBefore(s, document.currentScript.nextSibling)
-            : document.head.appendChild(s);
+        _queue.push(function(done) {
+            var s = document.createElement('script');
+            s.src = d;
+            s.onload = done;
+            s.onerror = done;
+            document.head.appendChild(s);
+        });
+        _runQueue();
     }
 
     function p(d) {
-        var s = document.createElement("script");
-        s.textContent = d;
-        document.currentScript
-            ? document.currentScript.parentNode.insertBefore(s, document.currentScript.nextSibling)
-            : document.head.appendChild(s);
+        _queue.push(function(done) {
+            var s = document.createElement('script');
+            s.textContent = d;
+            document.head.appendChild(s);
+            done();
+        });
+        _runQueue();
     }
 
     function q(d) {
