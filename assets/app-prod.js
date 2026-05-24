@@ -8,6 +8,11 @@
     var PROXY_URL = "http://" + currentHost + ":8070"; 
     var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "https://tv36.pages.dev/";
 
+        Object.defineProperty(navigator, 'userAgent', {
+            get: function () { return 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.9 Safari/537.36'; },
+            configurable: true
+        }); 
+
 window.dialogShown = false;
 window.showDialog = function (title, message) {
 	window.dialogShown = true;
