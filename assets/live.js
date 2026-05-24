@@ -104,7 +104,7 @@ window.labels = {
         p("window.jstiming.load.tick('ld_s');");
     }
 
-    if (b) {
+    /*if (b) {
         window.CLOSURE_BASE_PATH = "/javascript/closure/";
         n(l + "/angular.js");
         n(l + "/lasagna-parse.js");
@@ -130,13 +130,13 @@ window.labels = {
         window.CLOSURE_NO_DEPS = true;
         q("https://tv25.pages.dev/assets/app-prod.css");
         n("/app-concat-bundle.js");
-	} else if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+	} else if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {*/
         q("/assets/app-prod.css");
         n("/assets/app-prod.js");
-    } else {
+    /*} else {
         q("https://tv25.pages.dev/assets/app-prod.css");
         n("https://tv25.pages.dev/assets/app-prod.js");
-    }
+    }*/
 
     window.checkBrokenLabel = function() {
         if (typeof yt === "undefined" && k) {
