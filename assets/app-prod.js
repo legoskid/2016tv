@@ -8,10 +8,10 @@
     var PROXY_URL = "http://" + currentHost + ":8070"; 
     var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "https://tv36.pages.dev/";
 
-        Object.defineProperty(navigator, 'userAgent', {
+        /*Object.defineProperty(navigator, 'userAgent', {
             get: function () { return 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.9 Safari/537.36'; },
             configurable: true
-        }); 
+        });*/ 
 
 window.dialogShown = false;
 window.showDialog = function (title, message) {
@@ -26502,7 +26502,7 @@ window.showDialog = function (title, message) {
         Zs.inject = ["cssPrefix"];
 
         function $s(a) {
-            return "Cobalt" == a.browser ? "" : a.g("Firefox") ? "-moz-" : a.g("Opera") && "Presto" == a.l ? "-O-" : Da(a.browser, "IE") && 0 > a.i("12") ? "-ms-" : "-webkit-"
+            return ""
         }
         $s.inject = ["device"];
 
