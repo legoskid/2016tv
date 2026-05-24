@@ -16,10 +16,29 @@
 window.dialogShown = false;
 window.showDialog = function (title, message) {
 	window.dialogShown = true;
-	const dialog = document.querySelector("div#dialog.browse-sets.no-model.dialog");
-	dialog.className = "browse-sets focused browse-sets-titled-dialog dialog";
-	dialog.querySelector(".title").innerText = title;
-    dialog.querySelector(".no-model.component").innerText = message;
+    window.showDialog = function (title, message) {
+        window.dialogShown = true;
+        const dialogs = document.getElementsByTagName("div");
+        let dialog = null;
+        for (let i = 0; i < dialogs.length; i++) {
+            const el = dialogs[i];
+            if (el.id === "dialog" && el.classList.contains("browse-sets") && el.classList.contains("no-model") && el.classList.contains("dialog")) {
+                dialog = el;
+                break;
+            }
+        }
+        if (!dialog) return;
+        dialog.className = "browse-sets focused browse-sets-titled-dialog dialog";
+        const children = dialog.getElementsByTagName("*");
+        for (let i = 0; i < children.length; i++) {
+            if (children[i].classList.contains("title")) {
+                children[i].innerText = title;
+            }
+            if (children[i].classList.contains("no-model") && children[i].classList.contains("component")) {
+                children[i].innerText = message;
+            }
+        }
+    };
     /*dialog.querySelector(".no-model.component").innerHTML = `<div class="focused scroll-pane-dialog" tabindex="-1">  <div class="scrolling-text">    <div class="scrolling-text-content"></div>  </div>  <div class="scrollbar">    <div class="handle"></div>  </div></div>`;
     dialog.querySelector(".scrolling-text-content").innerText = message;*/
 }
