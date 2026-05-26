@@ -33,12 +33,38 @@ window.labels = {
 
     var l = window.appRoot + window.label;
 
+    var _queue = [];
+    var _running = false;
+
+    function _runQueue() {
+        if (_running || _queue.length === 0) return;
+        _running = true;
+        var item = _queue.shift();
+        item(function() {
+            _running = false;
+            _runQueue();
+        });
+    }
+
     function n(d) {
-        document.write('<script src="' + d + '"><\/script>');
+        _queue.push(function(done) {
+            var s = document.createElement('script');
+            s.src = d;
+            s.onload = done;
+            s.onerror = done;
+            document.head.appendChild(s);
+        });
+        _runQueue();
     }
 
     function p(d) {
-        document.write("<script>" + d + "<\/script>");
+        _queue.push(function(done) {
+            var s = document.createElement('script');
+            s.textContent = d;
+            document.head.appendChild(s);
+            done();
+        });
+        _runQueue();
     }
 
     function q(d) {
@@ -78,7 +104,7 @@ window.labels = {
         p("window.jstiming.load.tick('ld_s');");
     }
 
-    if (b) {
+    /*if (b) {
         window.CLOSURE_BASE_PATH = "/javascript/closure/";
         n(l + "/angular.js");
         n(l + "/lasagna-parse.js");
@@ -104,13 +130,13 @@ window.labels = {
         window.CLOSURE_NO_DEPS = true;
         q("https://tv25.pages.dev/assets/app-prod.css");
         n("/app-concat-bundle.js");
-	} else if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+	} else if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {*/
         q("/assets/app-prod.css");
         n("/assets/app-prod.js");
-    } else {
+    /*} else {
         q("https://tv25.pages.dev/assets/app-prod.css");
         n("https://tv25.pages.dev/assets/app-prod.js");
-    }
+    }*/
 
     window.checkBrokenLabel = function() {
         if (typeof yt === "undefined" && k) {

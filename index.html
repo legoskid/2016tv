@@ -7,6 +7,12 @@
 
  
     <script>
+        if (localStorage.getItem('innertubeserver') === null) {
+            localStorage.setItem('innertubeserver', 'http://192.168.1.134:8090/');
+        }
+        if (localStorage.getItem('buttonsattopright') === null) {
+            localStorage.setItem('buttonsattopright', 'false');
+        }
         (function () {
             (function () {
                 function d(a) {
@@ -88,7 +94,7 @@
 </head>
 
 <body class="xbox360 sets-ui lang-en_US lang-case-sensitive" lang="en_US" style="font-size: 118%;">
-<div id="loader"></div>
+    <div id="loader"></div>
     <div id="leanback">
 
     </div>
@@ -97,8 +103,8 @@
         var currentHost = window.location.hostname;
         var currentPort = window.location.port;
 
-        var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");  
-        var PROXY_URL = "http://" + currentHost + ":8070"; 
+        var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");
+        var PROXY_URL = "http://" + currentHost + ":8070";
 
         console.log("APP_URL:", APP_URL);
         console.log("PROXY_URL:", PROXY_URL);
@@ -231,6 +237,7 @@
         ytcfg.set("EXPERIMENT_FLAGS", {});
         ytcfg.set("CORS_HEADER_ADD_ORIGIN", true);
     </script>
+    <script src="assets/keymap.js"></script>
     <script src="assets/live.js"></script>
     <script src="profile.js"></script>
 
@@ -244,89 +251,96 @@
 
     </script>
 
-<script>
-  const messages = [
-    "something might break in the future as this is in beta","PINGAS!","Oh...","peenes peenes pingas pingas","TV36 InnerTube Endpoint Not working? go to https://tv25.pages.dev/settings/innertube.html"
-  ];
+    <script>
+        const messages = [
+            "something might break in the future as this is in beta", "PINGAS!", "Oh...", "peenes peenes pingas pingas", "TV36 InnerTube Endpoint Not working? go to https://tv25.pages.dev/settings/innertube.html"
+        ];
 
-  const data = {
-    copyright: `(C) TV25 Public Beta 2026, ${messages[Math.floor(Math.random() * messages.length)]}`
-  };
+        const data = {
+            copyright: `${navigator.userAgent} (C) TV25 Public Beta 2026, ${messages[Math.floor(Math.random() * messages.length)]}`
+        };
 
-  const div = document.createElement("div");
-  div.className = "pingas-copyright";
-  div.textContent = data.copyright;
-  document.body.appendChild(div);
-</script>
+        const div = document.createElement("div");
+        div.className = "pingas-copyright";
+        div.textContent = data.copyright;
+        if (localStorage.getItem("buttonsattopright") === "false") {
+            div.style.display = "none";
+        }
+        document.body.appendChild(div);
+    </script>
 
-<style>
-  /* snooping as usual i see */
-  .pingas-copyright {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0);
-    color: white;
-    padding: 2px 2px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    Z-INDEX: 300;
-  }
-</style>
+    <style>
+        /* snooping as usual i see */
+        .pingas-copyright {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background: rgba(0,0,0,0);
+            color: white;
+            padding: 2px 2px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            Z-INDEX: 300;
+        }
+    </style>
 
     <script>
-        (function(){const button = document.createElement("button")
+        (function () {
+            const button = document.createElement("button")
 
-button.textContent = "Open Index Settings"
+            button.textContent = "Open Index Settings"
 
-button.style.position = "fixed"
-button.style.top = "10px"
-button.style.right = "10px"
-button.style.zIndex = "999999999"
-button.style.padding = "10px 16px"
-button.style.background = "transparent"
-button.style.color = "#fff"
-button.style.border = "2px rgba(255, 255, 255, 0.1) solid"
-button.style.borderRadius = "8px"
-button.style.cursor = "pointer"
-button.style.cursor = "roboto-regular"
-if (localStorage.getItem("buttonsattopright") === "false") {
-  button.style.display = "none";
-}
+            button.style.position = "fixed"
+            button.style.top = "10px"
+            button.style.right = "10px"
+            button.style.zIndex = "999999999"
+            button.style.padding = "10px 16px"
+            button.style.background = "transparent"
+            button.style.color = "#fff"
+            button.style.border = "2px rgba(255, 255, 255, 0.1) solid"
+            button.style.borderRadius = "8px"
+            button.style.cursor = "pointer"
+            button.style.cursor = "roboto-regular"
+            if (localStorage.getItem("buttonsattopright") === "false") {
+                button.style.display = "none";
+            }
 
-var settings2 = function() {
-  location.hash = "settings"
-}
+            var settings2 = function () {
+                location.hash = "settings"
+            }
 
-button.onclick = settings2
+            button.onclick = settings2
 
-document.body.appendChild(button)})();
- (function(){const button = document.createElement("button")
+            document.body.appendChild(button)
+        })();
+        (function () {
+            const button = document.createElement("button")
 
-button.textContent = "Open ClientSide Settings"
+            button.textContent = "Open ClientSide Settings"
 
-button.style.position = "fixed"
-button.style.top = "54px"
-button.style.right = "10px"
-button.style.zIndex = "999999999"
-button.style.padding = "10px 16px"
-button.style.background = "transparent"
-button.style.color = "#fff"
-button.style.border = "2px rgba(255, 255, 255, 0.1) solid"
-button.style.borderRadius = "8px"
-button.style.cursor = "pointer"
-button.style.cursor = "roboto-regular"
-if (localStorage.getItem("buttonsattopright") === "false") {
-  button.style.display = "none";
-}
+            button.style.position = "fixed"
+            button.style.top = "54px"
+            button.style.right = "10px"
+            button.style.zIndex = "999999999"
+            button.style.padding = "10px 16px"
+            button.style.background = "transparent"
+            button.style.color = "#fff"
+            button.style.border = "2px rgba(255, 255, 255, 0.1) solid"
+            button.style.borderRadius = "8px"
+            button.style.cursor = "pointer"
+            button.style.cursor = "roboto-regular"
+            if (localStorage.getItem("buttonsattopright") === "false") {
+                button.style.display = "none";
+            }
 
-var settings3 = function() {
-  location.replace("/settings")
-}
+            var settings3 = function () {
+                location.replace("/settings")
+            }
 
-button.onclick = settings3
+            button.onclick = settings3
 
-document.body.appendChild(button)})()
+            document.body.appendChild(button)
+        })()
     </script>
 
 </body>

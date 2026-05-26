@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS transform: translateX Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 40px;
+        }
+
+        .container {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Base styling for the boxes */
+        .box {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+            /* Smoothly transition the transform property over 0.5 seconds */
+            transition: transform 0.5s ease;
+        }
+
+        /* Demo 1: Hover Effect (Positive moves Right) */
+        .hover-box {
+            background-color: #3498db;
+        }
+
+        .container:hover .hover-box {
+            /* Moves the box 150 pixels to the right */
+            transform: translateX(150px);
+        }
+
+        /* Demo 2: Percentage-based Translation */
+        .percent-box {
+            background-color: #e74c3c;
+        }
+
+        .container:hover .percent-box {
+            /* Moves the box to the right by exactly 100% of its own width */
+            transform: translateX(100%);
+        }
+
+        /* Demo 3: Continuous Animation (Negative moves Left) */
+        .animate-box {
+            background-color: #2ecc71;
+            /* Infinite loop animation */
+            animation: shiftLeft 3s linear infinite alternate;
+        }
+
+        @keyframes shiftLeft {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                /* Moves 100 pixels to the left */
+                transform: translateX(-100px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo 1 Container -->
+    <div class="container">
+        <h2>1. Hover to move right (Pixels)</h2>
+        <p>Hover over this section to move the blue box <code>translateX(150px)</code>.</p>
+        <div class="box hover-box">150px</div>
+    </div>
+
+    <!-- Demo 2 Container -->
+    <div class="container">
+        <h2>2. Hover to move right (Percentage)</h2>
+        <p>Hover over this section to move the red box <code>translateX(100%)</code> (its own width).</p>
+        <div class="box percent-box">100%</div>
+    </div>
+
+    <!-- Demo 3 Container -->
+    <div class="container">
+        <h2>3. Continuous Loop (Negative Axis)</h2>
+        <p>This green box constantly alternates back and forth using <code>translateX(-100px)</code>.</p>
+        <div class="box animate-box">Loop</div>
+    </div>
+
+</body>
+</html>

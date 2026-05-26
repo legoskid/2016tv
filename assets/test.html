@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .box {
+        background: #1e1e1e;
+        padding: 24px;
+        border-radius: 12px;
+        width: 320px;
+        box-sizing: border-box;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        margin-top: 10px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .current {
+        margin-top: 12px;
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    a {
+        display: block;
+        color: #9ac7ff;
+        text-decoration: none;
+        margin-top: 12px;
+        padding: 10px;
+        border-radius: 8px;
+        background: #2a2a2a;
+    }
+
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid #6fb1ff;
+            outline-offset: 2px;
+        }
+</style>
+</head>
+<body>
+    <span id="msg">This message will change.</span>
+    <script>
+        document.addEventListener('keydown', function (event) {
+                console.log('Fire TV D-pad Down pressed!');
+                // Insert your navigation or scrolling logic here
+            document.getElementById('msg').textContent = `Key pressed: key=${event.key}, keyCode=${event.keyCode}, code=${event.code}`;
+        });
+    </script>
+</body>
+</html>
