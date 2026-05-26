@@ -11771,7 +11771,7 @@
             if (!this.o) {
                 var a;
                 a = this.g();
-                a = Vg(this.b.baseYtUrl + "set_awesome", a);
+                a = Vg(INNERTUBE_URL + "set_awesome", a);
                 this.b.experiments.o && this.videoData.visitorData && lj(a) ? vj(a, {
                     headers: {
                         "X-Goog-Visitor-Id": this.videoData.visitorData
@@ -17468,7 +17468,7 @@
                             b.enableSafetyMode && (e.enable_safety_mode = "1");
                             b.Xa && (e.widget_referrer = b.Xa.substring(0, 128));
                             z(e, b.g);
-                            c = Vg(b.baseYtUrl + "/get_video_info", e)
+                            c = Vg(INNERTUBE_URL + "/get_video_info", e)
                     }
                     a = !this.M.isAd(); b = this.b; d = this.M.experiments.o; e = !this.M.experiments.b("disable_gvi_cors");
                     b.isDisposed() || (b.ab = c, b.Pa = a, b.Pd = !!d, b.sd = !!e, b.Yc = !0, b.Vm())
@@ -17541,7 +17541,7 @@
                 z(d, h);
                 delete d.fexp;
                 z(d, a);
-                d = ij(c.b.b.baseYtUrl + "player_204", d);
+                d = ij(INNERTUBE_URL + "player_204", d);
                 Pv(c, d, b)
             }
         };
@@ -18391,7 +18391,7 @@
                         b.g = Iv(a, !0);
                         b.na = !0;
                         b.send();
-                        a.b.videoData.U && (b = a.b.b, c = a.b.videoData, b = Vg(b.baseYtUrl + "ptracking", {
+                        a.b.videoData.U && (b = a.b.b, c = a.b.videoData, b = Vg(INNERTUBE_URL + "ptracking", {
                             html5: "1",
                             video_id: c.videoId,
                             cpn: c.clientPlaybackNonce,
@@ -41453,7 +41453,7 @@
                 c = new gh(null, 0, void 0);
                 e = Gg(e);
                 for (f = 0; f < h.length; f++) a = h[f], d = e[f], da(d) ? xh(c, a, d) : sh(c, a, d);
-                b = m0(b.b).baseYtUrl + "api/stats/ads";
+                b = INNERTUBE_URL + "youtubei/v1/stats/ads";
                 b = new Q(b);
                 eh(b, c);
                 zl(b.toString())
@@ -41485,7 +41485,7 @@
 
         function D2(a) {
             if (!a.X) {
-                var b = m0(a).baseYtUrl;
+                var b = INNERTUBE_URL
                 zl(b + "mac_204?action_fcts=1");
                 a.X = !0
             }
@@ -43571,7 +43571,7 @@
                             postAdRequests: xaa,
                             enablejsapi: yaa,
                             ssl: zaa,
-                            baseYtUrl: Aaa,
+                            baseYtUrl: INNERTUBE_URL,
                             controls: Baa,
                             disablekb: Caa,
                             jsapicallback: Daa,
