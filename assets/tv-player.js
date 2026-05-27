@@ -9134,7 +9134,7 @@
                   return parseInt(b.resolution.split('x')[1]) - parseInt(a.resolution.split('x')[1]);
                 });
                 console.log('Best video URL found:', sortedVideoLinks[0].url);
-                var proxyVideoUrl = PROXY_URL + '/' + sortedVideoLinks[0].url;
+                var proxyVideoUrl = PROXY_URL +  sortedVideoLinks[0].url;
                 console.log('Proxy Video URL:', proxyVideoUrl);
                 return {
                   url: proxyVideoUrl,
@@ -9166,7 +9166,7 @@
                   return null;
                 }
                 console.log('Audio URL found:', audioLink.url);
-                var proxyAudioUrl = PROXY_URL + '/' + audioLink.url;
+                var proxyAudioUrl = PROXY_URL +  audioLink.url;
                 console.log('Proxy Audio URL:', proxyAudioUrl);
                 var result = {
                   url: proxyAudioUrl,
@@ -15540,7 +15540,7 @@
             this.b = new XMLHttpRequest();
 
             // Prepend the CORS Anywhere proxy URL to the requested URL
-            var proxyUrl = PROXY_URL + '/';
+            var proxyUrl = PROXY_URL;
 
             // Decode the URL if it's already encoded (to prevent double encoding)
             var decodedUrl = decodeURIComponent(a);  // Decode the URL to avoid double encoding
@@ -15718,12 +15718,12 @@
                     if (e.g.match("\\.googlevideo\\.com$")) {
                         // Redirect to the proxy server for googlevideo.com
                         ch(e, "redirector.googlevideo.com");
-                        d = PROXY_URL + '/' + e.toString();  // Add proxy URL here
+                        d = PROXY_URL + e.toString();  // Add proxy URL here
                         console.log("Redirecting to googlevideo proxy:", d);
                     } else if (e.g.match("r[1-9].*\\.c\\.youtube\\.com$")) {
                         // Redirect to the proxy server for youtube.com
                         ch(e, "www.youtube.com");
-                        d = APROXY_URL + '/' + e.toString();  // Add proxy URL here
+                        d = APROXY_URL + e.toString();  // Add proxy URL here
                         console.log("Redirecting to youtube proxy:", d);
                     } else {
                         d = ml(d);  // Use the original method for other URLs
