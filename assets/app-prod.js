@@ -6,7 +6,7 @@
     var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");  
     var APP_HOST =  currentHost;  
     var PROXY_URL = "http://" + currentHost + ":8070"; 
-    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "http://whale.x10.mx/tv/";
+    var INNERTUBE_URL = localStorage.getItem("innertubeserver")
 
         /*Object.defineProperty(navigator, 'userAgent', {
             get: function () { return 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.9 Safari/537.36'; },

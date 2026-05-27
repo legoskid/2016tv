@@ -4,7 +4,7 @@
 
     var APP_URL = "http://" + currentHost + ":" + (currentPort || "8090");  
     var PROXY_URL = "http://" + currentHost + ":8070";
-    var INNERTUBE_URL = localStorage.getItem("innertubeserver") || "http://whale.x10.mx/tv/";
+    var INNERTUBE_URL = localStorage.getItem("innertubeserver")
     var DEFAULT_INNERTUBE_HOST = currentHost + ":" + (currentPort || "8090");
     var INNERTUBE_HOST = (function (a) {
         try {
