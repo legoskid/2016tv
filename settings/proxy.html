@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Settings</title>
+<title>Settings - Set Proxy Endpoint</title>
 <style>
 body {
   font-family: Arial, sans-serif;
@@ -70,12 +70,17 @@ input:focus-visible {
 </head>
 <body>
 <div class="box">
-  <h2>Settings</h2>
+  <h2>Set Proxy Endpoint</h2>
 
-  <a href="innertube.html">InnerTube Endpoint</a>
-  <a href="proxy.html">Proxy Endpoint</a>
-  <a href="profile.html">Profile</a>
+  <input id="value" type="text" placeholder="Enter Proxy URL">
+
+  <button id="save">Save</button>
+
+  <button id="clear">Clear</button>
+
   <a href="/">Back</a>
+
+  <div class="current" id="current"></div>
 </div>
 
 <script>
@@ -112,6 +117,15 @@ function setupDirectionalNavigation() {
       return
     }
 
+    const target = event.target
+    const isTextInput =
+      target instanceof HTMLInputElement &&
+      (target.type === "text" || target.type === "search" || target.type === "url")
+
+    if (isTextInput && (isLeft || isRight)) {
+      return
+    }
+
     event.preventDefault()
 
     if (isLeft || isUp) {
@@ -129,7 +143,32 @@ function setupDirectionalNavigation() {
 }
 
 setupDirectionalNavigation()
-</script>
 
+const input = document.getElementById("value")
+const current = document.getElementById("current")
+
+function updateDisplay() {
+  const value = localStorage.getItem("proxyserver")
+  current.textContent = "Current Endpoint: " + (value ?? "(not set)")
+}
+
+document.getElementById("save").onclick = () => {
+  localStorage.setItem("proxyserver", input.value)
+  updateDisplay()
+}
+
+document.getElementById("clear").onclick = () => {
+  localStorage.removeItem("proxyserver")
+  updateDisplay()
+}
+
+const existing = localStorage.getItem("proxyserver")
+
+if (existing !== null) {
+  input.value = existing
+}
+
+updateDisplay()
+</script>
 </body>
 </html>
