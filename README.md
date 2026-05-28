@@ -1,6 +1,8 @@
 
 # 2016YouTubeTV
 
+(This commit I got video working paired with the PHP API)
+
 A project to revive the old 2015-2016 YouTubeTV HTML5 Web App.
 
 

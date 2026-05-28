@@ -15719,12 +15719,12 @@
                     if (e.g.match("\\.googlevideo\\.com$")) {
                         // Redirect to the proxy server for googlevideo.com
                         ch(e, "redirector.googlevideo.com");
-                        d = PROXY_URL + e.toString();  // Add proxy URL here
+                        d = PROXY_URL + encodeURIComponent(e.toString());  // Add proxy URL here
                         console.log("Redirecting to googlevideo proxy:", d);
                     } else if (e.g.match("r[1-9].*\\.c\\.youtube\\.com$")) {
                         // Redirect to the proxy server for youtube.com
                         ch(e, "www.youtube.com");
-                        d = APROXY_URL + e.toString();  // Add proxy URL here
+                        d = APROXY_URL + encodeURIComponent(e.toString());  // Add proxy URL here
                         console.log("Redirecting to youtube proxy:", d);
                     } else {
                         d = ml(d);  // Use the original method for other URLs
