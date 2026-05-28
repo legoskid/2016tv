@@ -8962,6 +8962,7 @@
                   isLoading = true;
                   var xhr = new XMLHttpRequest();
                   xhr.open('GET', url, true);
+                  console.log(`Requesting segment: ${rangeStart}-${rangeEnd} from ${url}`);
                   xhr.setRequestHeader('Range', `bytes=${rangeStart}-${rangeEnd}`);
                   xhr.responseType = 'arraybuffer';
           
@@ -9134,7 +9135,7 @@
                   return parseInt(b.resolution.split('x')[1]) - parseInt(a.resolution.split('x')[1]);
                 });
                 console.log('Best video URL found:', sortedVideoLinks[0].url);
-                var proxyVideoUrl = PROXY_URL +  sortedVideoLinks[0].url;
+                var proxyVideoUrl = PROXY_URL + encodeURIComponent(sortedVideoLinks[0].url);
                 console.log('Proxy Video URL:', proxyVideoUrl);
                 return {
                   url: proxyVideoUrl,
@@ -9166,7 +9167,7 @@
                   return null;
                 }
                 console.log('Audio URL found:', audioLink.url);
-                var proxyAudioUrl = PROXY_URL +  audioLink.url;
+                var proxyAudioUrl = PROXY_URL +  encodeURIComponent(audioLink.url);
                 console.log('Proxy Audio URL:', proxyAudioUrl);
                 var result = {
                   url: proxyAudioUrl,
