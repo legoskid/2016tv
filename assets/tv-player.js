@@ -3971,7 +3971,7 @@
             d = d || "";
             l.open(c, a, !0);
             f && (l.responseType = f);
-            h && (l.withCredentials = !0);
+            h && (l.withCredentials = false);
             f = "POST" == c;
             if (e = sj(a, e))
                 for (var m in e) l.setRequestHeader(m, e[m]), "content-type" == m.toLowerCase() && (f = !1);
