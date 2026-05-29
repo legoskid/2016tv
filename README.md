@@ -11,19 +11,22 @@ Project forked from [halohash/2016tv](https://github.com/halohash/2016tv) which 
 Also, Ponymouse, I don't know who you are or how you starred my repo when I haven't even announced it anywhere yet, but thanks for the star!
 
 ## Goals
-* To create a standalone version of 2016YouTubeTV that doesn't need a server, similar to YTm15. Well, sort of. To accomplish this I made a entirely new InnerTube backend for PHP and made the frontend use that instead of the old NodeJS backend. Due to the nature of PHP you can just get the code and put it on a (free) web server that supports it and it'll work, which is exactly what I did. Code: [YouTubeTV-RapidAPI-PHP](https://github.com/legoskid/YouTubeTV-RapidAPI-PHP)
+* To create a standalone version of 2016YouTubeTV with a custom PHP-based InnerTube backend (replacing the old NodeJS backend), allowing it to run on any web server without complex setup, or on static hosting like GitHub Pages, letting you watch on the go! See [YouTubeTV-RapidAPI-PHP](https://github.com/legoskid/YouTubeTV-RapidAPI-PHP) for backend details.
 * To make it run on real TVs using Cobalt, the app this was designed for and what YouTube TV on Android TVs still run on.
 * To make it so that you can switch between YouTube TV versions, for real this time. Due to the nature of this codebase, that's going to be pretty hard to do
 * Support user-agents/browsers other than Chrome because the code defaults to some weird CSS. (Already done lol)
 
 ## Screenshots
-I'll fill this in later
+![Screenshot 1](screenshots/Screenshot_20260529_114643.png)
+![Screenshot 2](screenshots/Screenshot_20260529_115732.png)
 
-**Before Posting An Issue!**
+## Before Posting An Issue!
 
 Sike, put any issue and I'll try to help you out
 
 ## Setup
+**Website is already up and running: https://2016tv.whale.x10.mx**
+
 Same as the OG
 >[Make sure you have nodejs, npm, and python3 (version 3.7.something or above!)]
 >
@@ -40,7 +43,7 @@ Same as the OG
 >[To update just run "git fetch origin master"]
 
 Now hold up, there are two ways to run this.
-1. You can run the backend and frontend together, which is what the original did. To do this, just run "npm start" and it'll start both the backend and frontend at the same time. Make sure you go to YouTube TV, go to the settings, scroll all the way to "Open ClientSide Settings" and set the InnerTube URL to whatever your local IP address is with port 8090, and the proxy URL with port 8070
+1. You can run the backend and frontend together, which is what the original did. To do this, just run `npm start` and it'll start both the backend and frontend at the same time. Make sure you go to YouTube TV, go to the settings, scroll all the way to "Open ClientSide Settings" and set the InnerTube URL to whatever your local IP address is with port 8090, and the proxy URL with port 8070
 2. (Recommended) Host the 2016tv folder, GitHub Pages or any static hosting should work fine
 
 ## Setup (Cobalt)
