@@ -14308,45 +14308,39 @@
     a.load();
 
     // Play the media and handle success or failure
-    a.play().then(function () {
-        // Log success
-        console.log('Media played successfully');
-    }).catch(function (error) {
-        // Log error details
-        console.error('Play failed:', error);
+    var playResult = a.play();
+    if (playResult && typeof playResult.then === 'function') {
+        playResult.then(function () {
+            console.log('Media played successfully');
+        }).catch(function (error) {
+            console.error('Play failed:', error);
 
-        // If the error is related to unsupported formats, provide a detailed message
-        if (error.name === 'NotSupportedError') {
-            console.error('The media format is not supported. Please try a different format.');
-
-            // Check if the media type is unsupported and suggest a format change
-            if (a.type && !['video/mp4', 'audio/mp4', 'video/webm', 'audio/webm'].includes(a.type)) {
-                console.error('The current media type is not supported. Consider switching to a supported format (e.g., MP4 or WebM).');
-            }
-        } else {
-            // Log any other errors that might occur
-            console.error('Unexpected error:', error);
-        }
-
-        // Retry logic for handling failed play attempts (with exponential backoff)
-        var retryCount = 10;
-        function retryPlay() {
-            if (retryCount > 0) {
-                console.log(`Retrying play in 2 seconds... Attempts left: ${retryCount}`);
-                retryCount--;
-                setTimeout(function () {
-                    a.play().catch(retryPlay);  // Retry play and catch errors again
-                }, 2000);  // Wait 2 seconds before retrying
+            if (error.name === 'NotSupportedError') {
+                console.error('The media format is not supported. Please try a different format.');
             } else {
-                console.error('Failed to play media after multiple attempts.');
+                console.error('Unexpected error:', error);
             }
-        }
 
-        retryPlay();
-    });
+            var retryCount = 10;
+            function retryPlay() {
+                if (retryCount > 0) {
+                    retryCount--;
+                    setTimeout(function () {
+                        var retryResult = a.play();
+                        if (retryResult && typeof retryResult.then === 'function') {
+                            retryResult.catch(retryPlay);
+                        }
+                    }, 2000);
+                } else {
+                    console.error('Failed to play media after multiple attempts.');
+                }
+            }
+
+            retryPlay();
+        });
+    }
 };
-
-        g.Ha = function () {
+      g.Ha = function () {
             return this.b.error ? this.b.error.code : null
         };
         g.setPosition = function (a) {
