@@ -18,10 +18,10 @@ window.showDialog = function (title, message) {
 	window.dialogShown = true;
     window.showDialog = function (title, message) {
         window.dialogShown = true;
-        const dialogs = document.getElementsByTagName("div");
-        let dialog = null;
-        for (let i = 0; i < dialogs.length; i++) {
-            const el = dialogs[i];
+        var dialogs = document.getElementsByTagName("div");
+        var dialog = null;
+        for (var i = 0; i < dialogs.length; i++) {
+            var el = dialogs[i];
             if (el.id === "dialog" && el.classList.contains("browse-sets") && el.classList.contains("no-model") && el.classList.contains("dialog")) {
                 dialog = el;
                 break;
@@ -29,8 +29,8 @@ window.showDialog = function (title, message) {
         }
         if (!dialog) return;
         dialog.className = "browse-sets focused browse-sets-titled-dialog dialog";
-        const children = dialog.getElementsByTagName("*");
-        for (let i = 0; i < children.length; i++) {
+        var children = dialog.getElementsByTagName("*");
+        for (var i = 0; i < children.length; i++) {
             if (children[i].classList.contains("title")) {
                 children[i].innerText = title;
             }
